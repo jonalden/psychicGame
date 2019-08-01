@@ -1,0 +1,91 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Psychic Game!</h1>
+
+    <p id="wins"></p>
+    <p id="losses"></p>
+    <p id="guessesleft"></p>
+    <p id="lettersGuessed"></p>
+
+    <script>
+
+        let wins = 0;
+        let losses = 0;
+        let guessesLeft = 9;
+        let letterGuessed = "";
+
+
+        const guessesLeftText = document.getElementById("guessesLeft");
+        const lettersGuessedText = document.getElementById("lettersGuessed");
+        const winsText = document.getElementById("wins");
+        const lossesText = document.getElementById("losses");
+
+        //Make app pick random letter
+        const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
+            "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+        const letter = letters[Math.floor(Math.random() * letters.length)];
+        console.log(letter);
+
+        //Input your letter choice 
+        document.onkeyup = function (event) {
+            const userGuess = event.key.toLowerCase();
+
+
+            //If it matches log "win + 1"
+            if (userGuess === letter) {
+                wins++
+
+            }
+
+            //If it doesnt match log "loss + 1"
+            else {
+                losses++
+            }
+
+            //Track how many guesses we have left
+            if (userGuess !== letter) {
+                guessesLeft--
+            }
+
+            //Track all letters guessed so far
+
+            //If all guesses are used before picking correctly, say game over and reset to default
+        }
+
+        winsText.textContent = "wins: " + wins;
+        lossesText.textContent = "losses: " + losses;
+
+
+
+
+
+
+
+
+
+
+       
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
