@@ -11,75 +11,92 @@
 
     <h1>Psychic Game!</h1>
 
+    <p>Pick any letter to start!</p>
+
     <p id="wins"></p>
     <p id="losses"></p>
-    <p id="guessesleft"></p>
+    <p id="guessesLeft"></p>
     <p id="lettersGuessed"></p>
 
     <script>
 
+        const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
+            "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+
+        // creating variables for scoring the game
         let wins = 0;
         let losses = 0;
         let guessesLeft = 9;
-        let letterGuessed = "";
+        let lettersGuessed = [];
 
-
+        // creating variables to write to element ID
         const guessesLeftText = document.getElementById("guessesLeft");
         const lettersGuessedText = document.getElementById("lettersGuessed");
         const winsText = document.getElementById("wins");
         const lossesText = document.getElementById("losses");
 
-        //Make app pick random letter
-        const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
-            "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-        const letter = letters[Math.floor(Math.random() * letters.length)];
-        console.log(letter);
+        // making a function for when the game is over and scores need to be reset
+        function endGame() {
+            guessesLeft = 9;
+            lettersGuessed = [];
+            letter = letters[Math.floor(Math.random() * letters.length)];
+            console.log(letter);
+        }
 
-        //Input your letter choice 
+        // function for picking random letter
+        let letter = function () {
+            letters[Math.floor(Math.random() * letters.length)];
+            console.log(letter);
+            return letter;
+        }
+
+        // starts the game
+        endGame();
+
+
+        // Input your letter choice 
         document.onkeyup = function (event) {
             const userGuess = event.key.toLowerCase();
 
-
-            //If it matches log "win + 1"
-            if (userGuess === letter) {
-                wins++
-
+            //  track what letters you have already guessed, and cause an alert
+            //  if you pick the same one twice
+            if (lettersGuessed.indexOf(userGuess) === -1) {
+                lettersGuessed.push(userGuess);
             }
 
-            //If it doesnt match log "loss + 1"
             else {
-                losses++
+                alert("Pick a letter you haven't already chosen");
+                guessesLeft++;
             }
 
-            //Track how many guesses we have left
+
+            // If your guess matches the random letter add 1 to "wins"
+            if (userGuess === letter) {
+                wins++;
+                endGame();
+            }
+
+            // Track how many guesses we have left
             if (userGuess !== letter) {
-                guessesLeft--
+                guessesLeft--;
             }
 
-            //Track all letters guessed so far
+            // If it doesnt match add 1 to "losses"
+            if (guessesLeft === 0) {
+                losses++;
+                endGame();
+            }
 
-            //If all guesses are used before picking correctly, say game over and reset to default
+            // writing updated scores  
+            winsText.textContent = "wins: " + wins;
+            lossesText.textContent = "losses: " + losses;
+            guessesLeftText.textContent = "guessesLeft:" + guessesLeft;
+            lettersGuessedText.textContent = "lettersGuessed: " + lettersGuessed;
+
+
         }
-
-        winsText.textContent = "wins: " + wins;
-        lossesText.textContent = "losses: " + losses;
-
-
-
-
-
-
-
-
-
-
-       
-
-
-
-
-
 
 
 
